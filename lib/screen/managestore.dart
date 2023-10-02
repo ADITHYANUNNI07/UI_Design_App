@@ -1,0 +1,192 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:week_06_ui_design/screen/payment.dart';
+
+class ManageStoreScrn extends StatelessWidget {
+  const ManageStoreScrn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff176dab),
+        centerTitle: true,
+        title: Text(
+          'Manage Store',
+          style:
+              GoogleFonts.montserrat(fontSize: 25, fontWeight: FontWeight.w500),
+        ),
+        elevation: 0,
+      ),
+      backgroundColor: const Color(0xfff5f5f5),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  ManageStoreOptionsWidget(
+                      size: size,
+                      color: const Color(0xfff07017),
+                      title: 'Marketing Designs',
+                      icon: Icons.volume_up_outlined),
+                  const SizedBox(width: 10),
+                  ManageStoreOptionsWidget(
+                    size: size,
+                    title: 'Online Payments',
+                    icon: Icons.currency_rupee,
+                    color: const Color(0xff5fd661),
+                    ontap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PaymentScrn(),
+                      ));
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  ManageStoreOptionsWidget(
+                      size: size,
+                      color: const Color(0xfff3b256),
+                      title: 'Discount Coupons',
+                      icon: Icons.discount_outlined),
+                  const SizedBox(width: 10),
+                  ManageStoreOptionsWidget(
+                    size: size,
+                    title: 'My\nCustomers',
+                    icon: Icons.people_outline_rounded,
+                    color: const Color(0xff1ca89e),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  ManageStoreOptionsWidget(
+                      size: size,
+                      color: const Color(0xff7b7b7b),
+                      title: 'Store QR Code',
+                      icon: Icons.qr_code_scanner_sharp),
+                  const SizedBox(width: 10),
+                  ManageStoreOptionsWidget(
+                    size: size,
+                    title: 'Extra\nCharges',
+                    icon: Icons.money,
+                    color: const Color(0xff5fd661),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  ManageStoreOptionsWidget(
+                      size: size,
+                      color: const Color(0xffc05a88),
+                      title: 'Order\nForm',
+                      icon: Icons.format_align_left),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        selectedLabelStyle:
+            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+        unselectedLabelStyle:
+            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+        currentIndex: 3,
+        fixedColor: const Color(0xff176dab),
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt_rounded), label: 'Orders'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.widgets_outlined), label: 'Products'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.layers_sharp), label: 'Manage'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: 'Account')
+        ],
+      ),
+    );
+  }
+}
+
+class ManageStoreOptionsWidget extends StatelessWidget {
+  const ManageStoreOptionsWidget({
+    super.key,
+    required this.size,
+    required this.title,
+    required this.color,
+    required this.icon,
+    this.ontap,
+  });
+  final String title;
+  final Size size;
+  final Color color;
+  final IconData? icon;
+  final void Function()? ontap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        padding: const EdgeInsets.only(left: 15),
+        width: size.width / 2 - 10 - 5,
+        height: size.height / 5.4,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0, 0),
+              blurRadius: 1,
+              spreadRadius: 0,
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                ),
+                Container(
+                  color: Colors.green,
+                )
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: GoogleFonts.montserrat(
+                  fontSize: 25, fontWeight: FontWeight.w600),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
