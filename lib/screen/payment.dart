@@ -401,7 +401,7 @@ class PayoutsListWidget extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
           ),
-          Divider(
+          const Divider(
             color: Colors.grey,
           )
         ],

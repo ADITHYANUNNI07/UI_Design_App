@@ -1,9 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:week_06_ui_design/screen/order.dart';
 import 'package:week_06_ui_design/screen/payment.dart';
+import 'package:week_06_ui_design/screen/products.dart';
 
-class ManageStoreScrn extends StatelessWidget {
-  const ManageStoreScrn({super.key});
+class BottomNavigationBarExample extends StatefulWidget {
+  const BottomNavigationBarExample({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _BottomNavigationBarExampleState createState() =>
+      _BottomNavigationBarExampleState();
+}
+
+class _BottomNavigationBarExampleState
+    extends State<BottomNavigationBarExample> {
+  int _currentIndex = 3;
+  final List<Widget> _pages = [
+    HomePage(),
+    const OrdersPage(),
+    ProductsPage(),
+    ManagePage(),
+    AccountPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        selectedLabelStyle:
+            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+        unselectedLabelStyle:
+            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+        fixedColor: const Color(0xff176dab),
+        unselectedItemColor: Colors.grey,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt_rounded),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.widgets_outlined),
+            label: 'Products',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.layers_sharp),
+            label: 'Manage',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Account',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Text('Home Page'),
+    );
+  }
+}
+
+class ManagePage extends StatelessWidget {
+  const ManagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,35 +165,23 @@ class ManageStoreScrn extends StatelessWidget {
                       size: size,
                       color: const Color(0xffc05a88),
                       title: 'Order\nForm',
-                      icon: Icons.format_align_left),
+                      icon: Icons.format_align_left,
+                      newBool: true),
                 ],
               )
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: true,
-        selectedLabelStyle:
-            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-        unselectedLabelStyle:
-            GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-        currentIndex: 3,
-        fixedColor: const Color(0xff176dab),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_rounded), label: 'Orders'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.widgets_outlined), label: 'Products'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.layers_sharp), label: 'Manage'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: 'Account')
-        ],
-      ),
+    );
+  }
+}
+
+class AccountPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Account Page'),
     );
   }
 }
@@ -128,18 +194,20 @@ class ManageStoreOptionsWidget extends StatelessWidget {
     required this.color,
     required this.icon,
     this.ontap,
+    this.newBool = false,
   });
   final String title;
   final Size size;
   final Color color;
   final IconData? icon;
   final void Function()? ontap;
+  final bool newBool;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ontap,
       child: Container(
-        padding: const EdgeInsets.only(left: 15),
+        padding: const EdgeInsets.only(left: 15, right: 10),
         width: size.width / 2 - 10 - 5,
         height: size.height / 5.4,
         decoration: BoxDecoration(
@@ -160,22 +228,40 @@ class ManageStoreOptionsWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
-                    size: 35,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(
+                          icon,
+                          color: Colors.white,
+                          size: 35,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  color: Colors.green,
-                )
+                newBool
+                    ? Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          'New',
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    : Container()
               ],
             ),
             const SizedBox(height: 10),
