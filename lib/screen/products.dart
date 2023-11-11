@@ -125,7 +125,7 @@ class ListContainerProductsWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      height: size.height / 3.3,
+      height: size.height / 3.3 + 1.49,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),

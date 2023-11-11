@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:week_06_ui_design/screen/additional.dart';
+import 'package:week_06_ui_design/screen/dukaan.dart';
 import 'package:week_06_ui_design/screen/order.dart';
 import 'package:week_06_ui_design/screen/payment.dart';
 import 'package:week_06_ui_design/screen/products.dart';
@@ -151,6 +153,11 @@ class ManagePage extends StatelessWidget {
                       icon: Icons.qr_code_scanner_sharp),
                   const SizedBox(width: 10),
                   ManageStoreOptionsWidget(
+                    ontap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DukaanScrn(),
+                      ));
+                    },
                     size: size,
                     title: 'Extra\nCharges',
                     icon: Icons.money,
@@ -165,6 +172,11 @@ class ManagePage extends StatelessWidget {
                       size: size,
                       color: const Color(0xffc05a88),
                       title: 'Order\nForm',
+                      ontap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AdditionalScrn(),
+                        ));
+                      },
                       icon: Icons.format_align_left,
                       newBool: true),
                 ],

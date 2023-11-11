@@ -40,7 +40,7 @@ class _PaymentScrnState extends State<PaymentScrn> {
               Container(
                 padding: const EdgeInsets.all(10),
                 width: double.infinity,
-                height: size.height / 4,
+                height: size.height / 4 + 38,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -322,7 +322,7 @@ class PayoutsListWidget extends StatelessWidget {
     return Container(
       //padding: const EdgeInsets.only(top: 5),
       width: double.infinity,
-      height: 95,
+      height: 95 + 14,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
